@@ -41,14 +41,17 @@ export const EssaySection: React.FC<EssaySectionProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium tracking-widest uppercase mb-3">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium tracking-widest uppercase mb-3 shadow-sm"
+          >
             <BookOpen className="w-3.5 h-3.5" />
             <span>A Letter From My Heart 💕</span>
-          </div>
+          </motion.div>
           <h2 className="font-script text-4xl sm:text-6xl text-rose-100 drop-shadow-[0_0_15px_rgba(244,114,182,0.3)]">
             {essayHeading}
           </h2>
@@ -56,10 +59,11 @@ export const EssaySection: React.FC<EssaySectionProps> = ({
 
         {/* Vintage Letter Parchment Card */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          whileHover={{ y: -4, transition: { duration: 0.4, ease: 'easeOut' } }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative bg-[#1c1221]/80 backdrop-blur-2xl border border-rose-400/20 rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl shadow-rose-950/60 overflow-hidden"
         >
           {/* Subtle Corner Florals / Decorative Ribbon */}
@@ -67,18 +71,28 @@ export const EssaySection: React.FC<EssaySectionProps> = ({
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-amber-500/10 via-rose-500/5 to-transparent rounded-tr-full pointer-events-none" />
           
           {/* Heart Stamp Badge */}
-          <div className="absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 rounded-full border border-rose-400/40 bg-rose-950/60 flex items-center justify-center text-rose-300 shadow-inner">
+          <motion.div 
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 rounded-full border border-rose-400/40 bg-rose-950/60 flex items-center justify-center text-rose-300 shadow-inner"
+          >
             <Heart className="w-6 h-6 fill-rose-500/40 text-rose-300 animate-pulse" />
-          </div>
+          </motion.div>
 
           {/* Featured Quote */}
           {essayQuote && (
-            <div className="relative mb-8 pb-6 border-b border-rose-500/15">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative mb-8 pb-6 border-b border-rose-500/15"
+            >
               <Quote className="absolute -top-3 -left-2 w-8 h-8 text-rose-400/20" />
               <p className="font-cormorant italic text-xl sm:text-2xl text-amber-100/90 leading-relaxed pl-6 pr-10 font-light">
                 {essayQuote}
               </p>
-            </div>
+            </motion.div>
           )}
 
           {/* Essay Body - Styled with Cursive & Stylish Fonts + Heart Emojis */}
@@ -86,10 +100,10 @@ export const EssaySection: React.FC<EssaySectionProps> = ({
             {essayBody.map((paragraph, index) => (
               <motion.p
                 key={index}
-                initial={{ opacity: 0, x: -15 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
                 className="first-letter:text-4xl first-letter:font-script first-letter:text-rose-300 first-letter:mr-1 tracking-wide"
               >
                 {paragraph}
@@ -109,10 +123,11 @@ export const EssaySection: React.FC<EssaySectionProps> = ({
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               onClick={onNext}
-              className="flex items-center gap-2 bg-rose-600/30 hover:bg-rose-600/50 border border-rose-400/40 text-rose-100 px-6 py-3 rounded-full text-sm font-medium shadow-lg shadow-rose-950/40 transition-all cursor-pointer"
+              className="flex items-center gap-2 bg-rose-600/30 hover:bg-rose-600/50 border border-rose-400/40 text-rose-100 px-6 py-3 rounded-full text-sm font-medium shadow-lg shadow-rose-950/40 transition-shadow cursor-pointer"
             >
               <span>Explore Our Memories</span>
               <ChevronRight className="w-4 h-4 text-rose-200" />

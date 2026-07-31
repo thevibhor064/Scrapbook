@@ -81,11 +81,12 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          whileHover={{ y: -3, transition: { duration: 0.3 } }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="bg-slate-950/60 backdrop-blur-2xl border border-rose-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-rose-950/40 text-center relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl animate-pulse-glow" />
           
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium uppercase tracking-widest mb-4">
             <Calendar className="w-3.5 h-3.5" />
@@ -94,9 +95,15 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 my-3">
             <div>
-              <span className="font-script text-6xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-300 to-amber-200 drop-shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+              <motion.span 
+                initial={{ scale: 0.8 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="font-script text-6xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-300 to-amber-200 drop-shadow-[0_0_20px_rgba(244,63,94,0.4)] block"
+              >
                 {daysCount}
-              </span>
+              </motion.span>
               <span className="block font-cormorant text-xl text-rose-200/80 font-light">
                 Days of Adoring You
               </span>
@@ -115,14 +122,18 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative text-center"
         >
           <div className="bg-[#1e1124]/90 backdrop-blur-2xl border border-rose-400/30 rounded-3xl p-8 sm:p-12 shadow-2xl shadow-rose-950/60 overflow-hidden">
             
-            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-600 to-pink-400 mx-auto flex items-center justify-center text-white shadow-xl shadow-rose-600/40 mb-6">
+            <motion.div 
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-600 to-pink-400 mx-auto flex items-center justify-center text-white shadow-xl shadow-rose-600/40 mb-6"
+            >
               <Gift className="w-8 h-8" />
-            </div>
+            </motion.div>
 
             <h2 className="font-script text-4xl sm:text-6xl text-rose-100 mb-4">
               {finalNoteHeading}
@@ -133,8 +144,9 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
             </p>
 
             <motion.button
-              whileHover={{ scale: 1.06 }}
+              whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               onClick={toggleLetter}
               className="inline-flex items-center gap-2.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium px-8 py-4 rounded-full text-base shadow-xl shadow-rose-900/50 border border-rose-300/30 cursor-pointer"
             >
@@ -146,11 +158,11 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
             <AnimatePresence>
               {isLetterOpen && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="mt-8 pt-8 border-t border-rose-500/20 text-rose-200 font-script text-3xl sm:text-4xl text-pink-200 leading-relaxed bg-rose-950/30 p-6 rounded-2xl border border-rose-400/20"
+                  initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, height: 'auto', scale: 1 }}
+                  exit={{ opacity: 0, height: 0, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-8 pt-8 border-t border-rose-500/20 text-rose-200 font-script text-3xl sm:text-4xl text-pink-200 leading-relaxed bg-rose-950/30 p-6 rounded-2xl border border-rose-400/20 shadow-inner"
                 >
                   <p>“You are mine and Im yours. Always. ❤️”</p>
                 </motion.div>
@@ -161,13 +173,15 @@ export const FinalNoteSection: React.FC<FinalNoteSectionProps> = ({
 
         {/* Footer / Replay Button */}
         <div className="text-center pt-8">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onRestart}
-            className="inline-flex items-center gap-2 text-rose-300/80 hover:text-rose-100 text-sm font-cormorant tracking-widest uppercase transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-rose-300/80 hover:text-rose-100 text-sm font-cormorant tracking-widest uppercase transition-colors cursor-pointer group"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-4 h-4 group-hover:-rotate-90 transition-transform duration-300" />
             <span>Replay Scrapbook From Beginning</span>
-          </button>
+          </motion.button>
         </div>
 
       </div>

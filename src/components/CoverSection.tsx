@@ -39,7 +39,8 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
           className="inline-flex items-center gap-2 bg-rose-500/10 border border-rose-400/30 backdrop-blur-md text-rose-200 px-5 py-2 rounded-full mb-8 shadow-lg shadow-rose-950/50"
         >
           <Sparkles className="w-4 h-4 text-amber-300 animate-sparkle" />
@@ -63,7 +64,7 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="font-cormorant italic text-lg sm:text-2xl text-rose-200/90 max-w-xl mx-auto font-light leading-relaxed px-4"
           >
             {coverSubtitle}
@@ -74,12 +75,17 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="flex items-center justify-center gap-4 my-8"
         >
           <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent via-rose-400/50 to-transparent" />
           <div className="w-3 h-3 rounded-full bg-rose-400/80 animate-ping" />
-          <Heart className="w-5 h-5 text-rose-400 fill-rose-400/60 drop-shadow-[0_0_10px_rgba(244,63,94,0.8)]" />
+          <motion.div
+            animate={{ scale: [1, 1.25, 1], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <Heart className="w-5 h-5 text-rose-400 fill-rose-400/60 drop-shadow-[0_0_12px_rgba(244,63,94,0.9)]" />
+          </motion.div>
           <div className="w-3 h-3 rounded-full bg-rose-400/80 animate-ping" />
           <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent via-rose-400/50 to-transparent" />
         </motion.div>
@@ -91,9 +97,12 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
           transition={{ duration: 0.8, delay: 1 }}
           className="pt-4"
         >
-          <button
+          <motion.button
+            whileHover={{ scale: 1.06, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={onNext}
-            className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white font-medium text-sm sm:text-base px-8 py-4 rounded-full shadow-xl shadow-rose-900/40 border border-rose-300/30 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white font-medium text-sm sm:text-base px-8 py-4 rounded-full shadow-xl shadow-rose-900/40 border border-rose-300/30 transition-shadow duration-300 cursor-pointer"
           >
             <span className="font-cormorant text-lg font-semibold tracking-wide">
               Begin Scrapbook Journey
@@ -101,8 +110,8 @@ export const CoverSection: React.FC<CoverSectionProps> = ({
             <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform text-rose-100" />
             
             {/* Glowing effect behind button */}
-            <span className="absolute -inset-1 rounded-full bg-rose-500/20 blur-md group-hover:bg-rose-500/40 transition-all -z-10" />
-          </button>
+            <span className="absolute -inset-1 rounded-full bg-rose-500/20 blur-md group-hover:bg-rose-500/50 transition-all -z-10" />
+          </motion.button>
         </motion.div>
       </div>
 

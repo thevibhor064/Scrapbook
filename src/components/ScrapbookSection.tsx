@@ -133,10 +133,10 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
               initial={{ opacity: 0, y: 30, rotate: 0 }}
               whileInView={{ opacity: 1, y: 0, rotate: photo.rotation }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.04, rotate: 0, zIndex: 30 }}
+              transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: 1.05, rotate: 0, y: -6, zIndex: 30 }}
               onClick={() => setSelectedPhoto(photo)}
-              className="group relative bg-[#fdfbf7] p-4 sm:p-5 rounded-sm shadow-2xl shadow-black/60 border border-amber-100/30 cursor-pointer transform transition-all duration-300"
+              className="group relative bg-[#fdfbf7] p-4 sm:p-5 rounded-sm shadow-2xl shadow-black/60 border border-amber-100/30 cursor-pointer transform transition-shadow duration-300 hover:shadow-rose-900/50"
             >
               {/* Decorative Washi Tape */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-rose-200/60 backdrop-blur-sm border border-rose-300/40 rotate-[-2deg] shadow-sm z-20" />
@@ -204,13 +204,16 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
 
         {/* Next Section Button */}
         <div className="mt-16 text-center">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.06, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={onNext}
-            className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-rose-950/80 border border-rose-500/30 text-rose-200 px-8 py-3.5 rounded-full text-sm font-medium shadow-xl transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-rose-950/80 border border-rose-500/30 text-rose-200 px-8 py-3.5 rounded-full text-sm font-medium shadow-xl transition-shadow cursor-pointer"
           >
             <span>Proceed to Final Note</span>
             <Heart className="w-4 h-4 fill-rose-500 text-rose-500 animate-pulse" />
-          </button>
+          </motion.button>
         </div>
       </div>
 
