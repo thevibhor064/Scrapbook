@@ -8,7 +8,6 @@ import { CoverSection } from './components/CoverSection';
 import { EssaySection } from './components/EssaySection';
 import { ScrapbookSection } from './components/ScrapbookSection';
 import { FinalNoteSection } from './components/FinalNoteSection';
-import { CustomizerModal } from './components/CustomizerModal';
 
 export default function App() {
   const [content, setContent] = useState<ScrapbookContent>(() => {
@@ -31,7 +30,6 @@ export default function App() {
   });
 
   const [activeSection, setActiveSection] = useState<ActiveSection>('cover');
-  const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
 
   // Save changes to localStorage so user edits persist across refreshes
   useEffect(() => {
@@ -104,7 +102,6 @@ export default function App() {
       <Navigation
         activeSection={activeSection}
         onSelectSection={scrollToSection}
-        onOpenCustomizer={() => setIsCustomizerOpen(true)}
         girlfriendName={content.girlfriendName}
       />
 
@@ -144,14 +141,6 @@ export default function App() {
           onRestart={() => scrollToSection('cover')}
         />
       </main>
-
-      {/* Customizer Modal for Live Editing & Gemini AI */}
-      <CustomizerModal
-        isOpen={isCustomizerOpen}
-        onClose={() => setIsCustomizerOpen(false)}
-        content={content}
-        onSaveContent={(newContent) => setContent(newContent)}
-      />
     </div>
   );
 }

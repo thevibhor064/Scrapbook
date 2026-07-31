@@ -6,14 +6,13 @@ import { ActiveSection } from '../types';
 interface NavigationProps {
   activeSection: ActiveSection;
   onSelectSection: (section: ActiveSection) => void;
-  onOpenCustomizer: () => void;
+  onOpenCustomizer?: () => void;
   girlfriendName: string;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
   activeSection,
   onSelectSection,
-  onOpenCustomizer,
   girlfriendName,
 }) => {
   const sections: { id: ActiveSection; label: string; icon: React.ReactNode }[] = [
@@ -74,20 +73,6 @@ export const Navigation: React.FC<NavigationProps> = ({
             );
           })}
         </nav>
-
-        {/* Action button */}
-        <div className="flex items-center gap-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onOpenCustomizer}
-            className="flex items-center gap-1.5 bg-gradient-to-r from-rose-500/20 to-pink-500/20 hover:from-rose-500/30 hover:to-pink-500/30 border border-rose-400/40 text-rose-200 text-xs px-3.5 py-1.5 rounded-full shadow-sm transition-all"
-          >
-            <Edit3 className="w-3.5 h-3.5 text-rose-300" />
-            <span className="hidden sm:inline font-medium">Personalize & Upload</span>
-            <span className="sm:hidden font-medium">Edit</span>
-          </motion.button>
-        </div>
       </div>
     </header>
   );

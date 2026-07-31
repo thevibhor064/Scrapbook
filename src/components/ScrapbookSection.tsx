@@ -112,29 +112,17 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-16 text-center md:text-left">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium tracking-widest uppercase mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>Our Digital Scrapbook 📷</span>
-            </div>
-            <h2 className="font-script text-4xl sm:text-6xl text-rose-100">
-              Moments With {girlfriendName} 💕
-            </h2>
-            <p className="font-cormorant italic text-lg text-rose-200/80 mt-2">
-              Click any photo to view in detail, or add your own memories below!
-            </p>
+        <div className="flex flex-col items-center text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium tracking-widest uppercase mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span>Our Digital Scrapbook 📷</span>
           </div>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-6 py-3 rounded-full text-sm font-medium shadow-xl shadow-rose-900/40 border border-rose-300/30 cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add / Upload Our Photo</span>
-          </motion.button>
+          <h2 className="font-script text-4xl sm:text-6xl text-rose-100">
+            Moments With {girlfriendName} 💕
+          </h2>
+          <p className="font-cormorant italic text-lg text-rose-200/80 mt-2">
+            Click any photo to view in detail!
+          </p>
         </div>
 
         {/* Polaroid Scrapbook Grid */}
@@ -199,27 +187,6 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
                   )}
                 </div>
               </div>
-
-              {/* Action buttons (Edit & Delete) */}
-              <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 z-30">
-                <button
-                  onClick={(e) => openEditModal(photo, e)}
-                  className="p-1.5 rounded-full bg-slate-900/80 text-slate-200 hover:text-rose-300 hover:bg-slate-900 shadow-md"
-                  title="Edit photo info"
-                >
-                  <Edit2 className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeletePhoto(photo.id);
-                  }}
-                  className="p-1.5 rounded-full bg-slate-900/80 text-slate-200 hover:text-rose-400 hover:bg-slate-900 shadow-md"
-                  title="Delete memory"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </motion.div>
           ))}
         </div>
@@ -229,15 +196,9 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
           <div className="text-center py-20 bg-slate-950/40 rounded-3xl border border-rose-500/20 p-8">
             <ImageIcon className="w-16 h-16 text-rose-400/40 mx-auto mb-4" />
             <h3 className="font-script text-3xl text-rose-200 mb-2">Our Scrapbook Canvas</h3>
-            <p className="font-cormorant italic text-lg text-rose-300/70 mb-6">
-              No photos added yet! Click the button below to upload your favorite memories of Aruu.
+            <p className="font-cormorant italic text-lg text-rose-300/70">
+              Our special memories collection.
             </p>
-            <button
-              onClick={() => setIsAddModalOpen(true)}
-              className="bg-rose-600 hover:bg-rose-500 text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg"
-            >
-              Upload First Memory 💕
-            </button>
           </div>
         )}
 
@@ -293,155 +254,6 @@ export const ScrapbookSection: React.FC<ScrapbookSectionProps> = ({
                 <div className="flex items-center justify-center gap-4 text-sm text-rose-700 font-medium pt-2">
                   {selectedPhoto.date && <span>🗓️ {selectedPhoto.date}</span>}
                   {selectedPhoto.location && <span>📍 {selectedPhoto.location}</span>}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Add / Edit Photo Modal */}
-      <AnimatePresence>
-        {isAddModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md p-4 flex items-center justify-center"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              className="max-w-lg w-full bg-[#180e1d] border border-rose-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-100 relative"
-            >
-              <button
-                onClick={resetModal}
-                className="absolute top-5 right-5 p-2 rounded-full bg-slate-800/80 text-slate-300 hover:text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <h3 className="font-script text-3xl text-rose-200 mb-6">
-                {editingPhoto ? 'Edit Memory Card 📷' : 'Add New Photo Memory 💕'}
-              </h3>
-
-              <div className="space-y-4">
-                {/* Image Upload / URL */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-rose-300/80 mb-2 font-medium">
-                    Photo File or Image URL
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Paste image URL (e.g. Unsplash or direct link)"
-                      value={newPhotoUrl}
-                      onChange={(e) => setNewPhotoUrl(e.target.value)}
-                      className="w-full bg-slate-900/80 border border-rose-500/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-rose-400"
-                    />
-                    <label className="flex items-center gap-1.5 bg-rose-600/30 hover:bg-rose-600/50 border border-rose-400/40 text-rose-200 text-xs px-4 py-2.5 rounded-xl cursor-pointer font-medium whitespace-nowrap">
-                      <Upload className="w-4 h-4" />
-                      <span>Upload</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                </div>
-
-                {/* Preview if image URL exists */}
-                {newPhotoUrl && (
-                  <div className="aspect-[16/9] w-full rounded-xl overflow-hidden bg-slate-950 border border-rose-500/20">
-                    <img
-                      src={newPhotoUrl}
-                      alt="Preview"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-
-                {/* Caption */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-rose-300/80 mb-1 font-medium">
-                    Memory Caption
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Sunset beach walk with my Aruu 🥰"
-                    value={newCaption}
-                    onChange={(e) => setNewCaption(e.target.value)}
-                    className="w-full bg-slate-900/80 border border-rose-500/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-rose-400"
-                  />
-                </div>
-
-                {/* Date & Location */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider text-rose-300/80 mb-1 font-medium">
-                      Date
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Aug 1st"
-                      value={newDate}
-                      onChange={(e) => setNewDate(e.target.value)}
-                      className="w-full bg-slate-900/80 border border-rose-500/20 rounded-xl px-3.5 py-2 text-sm text-slate-200 focus:outline-none focus:border-rose-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider text-rose-300/80 mb-1 font-medium">
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Our City"
-                      value={newLocation}
-                      onChange={(e) => setNewLocation(e.target.value)}
-                      className="w-full bg-slate-900/80 border border-rose-500/20 rounded-xl px-3.5 py-2 text-sm text-slate-200 focus:outline-none focus:border-rose-400"
-                    />
-                  </div>
-                </div>
-
-                {/* Sticker Selection */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-rose-300/80 mb-2 font-medium">
-                    Sticker Accent
-                  </label>
-                  <div className="flex gap-3 text-2xl">
-                    {(['heart', 'sparkle', 'flower', 'kiss', 'star'] as const).map((st) => (
-                      <button
-                        key={st}
-                        type="button"
-                        onClick={() => setSelectedSticker(st)}
-                        className={`p-2 rounded-xl border transition-all ${
-                          selectedSticker === st
-                            ? 'bg-rose-500/30 border-rose-400 scale-110'
-                            : 'bg-slate-900/50 border-rose-500/10 opacity-60'
-                        }`}
-                      >
-                        {st === 'heart' && '💖'}
-                        {st === 'sparkle' && '✨'}
-                        {st === 'flower' && '🌸'}
-                        {st === 'kiss' && '💋'}
-                        {st === 'star' && '⭐'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Save button */}
-                <div className="pt-4">
-                  <button
-                    onClick={handleSavePhoto}
-                    className="w-full bg-gradient-to-r from-rose-600 to-pink-500 hover:from-rose-500 hover:to-pink-400 text-white font-medium py-3 rounded-xl shadow-lg shadow-rose-950/50"
-                  >
-                    {editingPhoto ? 'Save Changes' : 'Add Memory to Scrapbook 💕'}
-                  </button>
                 </div>
               </div>
             </motion.div>
