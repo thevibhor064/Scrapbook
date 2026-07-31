@@ -1,0 +1,6 @@
+{
+  "name": "Scrapbook for Aruu",
+  "description": "A romantic scrolling digital scrapbook for Girlfriend's Day with interactive memories, custom essay, photo gallery, and dreamy animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
